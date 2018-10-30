@@ -2,7 +2,7 @@
     <div v-show="!shrink" :style="{background: bgColor}" class="ivu-shrinkable-menu">
         <div slot="top" class="logo-con" style="background: #2E8CF0;">
             <img class="logo" src="../../../static/image/favicon.ico" />
-            <span class="logo_txt">开发平台</span>
+            <span class="logo_txt">气象管理平台</span>
         </div>
         <slot name="top"></slot>
         <Menu ref="sideMenu" :active-name="currentRouter.id" :open-names="openNames" :theme="theme" width="auto" @on-select="selectMenu">
