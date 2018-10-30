@@ -1,0 +1,16 @@
+<div ref="wraper" :class="wraperClasses" @DOMMouseScroll="handleDOMMouseWheel" @mousewheel="handleMouseWheel">
+    <div
+            ref="content"
+            :class="`vue-scroller-bars-content`"
+            :style="contentStyles"
+    >
+        <slot></slot>
+    </div>
+    <div v-show="percentY < 1 && !disScrollY" :class="scrollYClasses" :style="scrollYStyles">
+        <div :class="[`vue-scroller-bars-scroll-bar`, `vue-scroller-bars-scroll-bar-y`]" :style="scrollBarYStyles" @mousedown="handleMousedownScrollBarY"></div>
+    </div>
+    <div v-show="percentX < 1 && !disScrollX" :class="scrollXClasses" :style="scrollXStyles">
+        <div :class="[`vue-scroller-bars-scroll-bar`, `vue-scroller-bars-scroll-bar-x`]" :style="scrollBarXStyles" @mousedown="handleMousedownScrollBarX"></div>
+    </div>
+    <div v-show="percentX < 1 && percentY < 1" :class="`vue-scroller-bars-place-holder`"></div>
+</div>

@@ -1,0 +1,61 @@
+<div style="width: 100%; height: 100%; background-color: #188ae2;">
+    <Row class="login-forget-brother">
+        <Row class="otherbox">
+            <div class="tabfind">
+               <span class="diffsaiton" >重置密码</span>
+             </div>
+            <div class="form-con" v-if="isFirstPanel">
+                <Form ref="firstForm" :model="user" :rules="rules">
+                    <FormItem prop="mobile">
+                        <Input v-model="user.mobile" placeholder="手机号码或邮箱" size="large" clearable>
+                        </Input>
+                    </FormItem>
+                    <Button @click="nextHandle" type="primary" long class="login-button" :loading="nextForget">
+                        <span v-if="!nextForget">下一步</span>
+                        <span v-else>跳转中...</span>
+                    </Button>
+                </Form>
+            </div>
+            <!-- 找回密码 -->
+            <div class="form-con" v-if="!isFirstPanel">
+                <Form ref="findForm" :model="user" :rules="rules">
+                    <FormItem prop="mobile" v-show="isMobilePanel">
+                        <Input v-model="user.mobile" placeholder="手机号" disabled class="" size="large" style="">
+                        </Input>
+                    </FormItem>
+                    <FormItem prop="validateCode" v-show="isMobilePanel">
+                        <Input v-model="user.validateCode" placeholder="短信校验码" size="large" class="valiwhich" clearable>
+                        </Input>
+                        <Button @click="sendValidateCode(3)" :disabled="!isClickValidateCode" type="primary" class="send">{{ validateCodeContent }}</Button>
+                    </FormItem>
+                    <FormItem prop="email" v-show="!isMobilePanel">
+                        <Input v-model="user.email" placeholder="邮箱" disabled class="" size="large" style="">
+                        </Input>
+                    </FormItem>
+                    <FormItem prop="validateCode" v-show="!isMobilePanel">
+                        <Input v-model="user.validateCode" placeholder="邮件校验码" size="large" class="valiwhich" clearable>
+                        </Input>
+                        <Button @click="sendValidateCode(3,false)" :disabled="!isClickValidateCode" type="primary" class="send">{{ validateCodeContent }}</Button>
+                    </FormItem>
+                  <FormItem prop="password">
+                    <Input  type="password"  v-model="user.password" placeholder="新密码" size="large" clearable >
+                    </Input>
+                       <div :class="{ 'eyeclose' : isA, 'eyeopen': !isA}"  @click="changeType()"></div>
+                  </FormItem>
+                       <FormItem prop="repassword">
+                    <Input  type="password"  v-model="user.repassword" placeholder="确认新密码" size="large" clearable >
+                    </Input>
+                       <div :class="{ 'eyeclose' : isB, 'eyeopen': !isB}"  @click="changeType1()"></div>
+                  </FormItem>
+                  <Button @click="handleFind" type="primary" long class="login-button" :loading="resetWord">
+                        <span v-if="!resetWord">重置密码</span>
+                        <span v-else>重置中...</span>
+                  </Button>
+                  <div class="gologin">
+                    <a @click="showLogin"> 返回登录</a>
+                  </div>
+                </Form>
+            </div>
+        </Row>
+    </Row>
+</div>

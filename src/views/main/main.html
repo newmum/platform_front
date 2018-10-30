@@ -1,0 +1,66 @@
+<div class="main" :class="{'main-hide-text': shrink}">
+    <div class="sidebar-menu-con" :style="{width: shrink?'60px':'220px', overflow: shrink ? 'visible' : 'auto'}">
+
+            <SidebarMenu :shrink="shrink"
+                         :currentRouter="currentRouter"
+                         :theme="menuTheme"
+                         :before-push="beforePush"
+                         :open-names="openNames"
+                         :menu-list="menuList"
+                         >
+            </SidebarMenu>
+
+    </div>
+    <div class="main-header-con" :style="{paddingLeft: shrink?'60px':'220px'}">
+        <div class="main-header">
+            <div class="navicon-con">
+                <Button :style="{transform: 'rotateZ(' + (this.shrink ? '-90' : '0') + 'deg)'}" type="text" @click="toggleClick">
+                    <Icon type="navicon" size="32"></Icon>
+                </Button>
+            </div>
+            <div class="header-middle-con">
+                <div class="main-breadcrumb">
+                    <Breadcrumb>
+                        <BreadcrumbItem v-for="item in breadcrumb" :href="item.path" :key="item.name">{{ item.title}}</BreadcrumbItem>
+                    </Breadcrumb>
+                </div>
+            </div>
+            <div class="header-avator-con">
+                <!-- <full-screen v-model="isFullScreen"></full-screen>
+                <lock-screen></lock-screen> -->
+                <!-- <message-tip v-model="mesCount"></message-tip> -->
+                <!-- <theme-switch></theme-switch> -->
+                <div class="user-dropdown-menu-con">
+                    <Row type="flex" justify="end" align="middle" class="user-dropdown-innercon">
+                        <Dropdown transfer trigger="click" @on-click="handleUser">
+                            <a href="javascript:void(0)">
+                                <span class="main-user-name">{{user.account}}</span>
+                                <Icon type="arrow-down-b"></Icon>
+                            </a>
+                            <DropdownMenu slot="list">
+                                <DropdownItem name="account">个人中心</DropdownItem>
+                                <DropdownItem name="logout" divided>退出登录</DropdownItem>
+                            </DropdownMenu>
+                        </Dropdown>
+                        <div class="user_box">
+                            <Icon v-show="!shrinkImg" type="android-person"></Icon>
+                            <img class="user_img" v-show="shrinkImg" src="../../../static/image/user.png" />
+                        </div>
+                    </Row>
+                </div>
+            </div>
+        </div>
+        <div class="tags-con">
+            <NavTags :currentRouter="currentRouter"
+                     :tagsList="tagsList"
+            ></NavTags>
+        </div>
+    </div>
+    <div class="single-page-con" :style="{left: shrink?'60px':'220px'}">
+        <div class="single-page">
+            <keep-alive>
+                <router-view></router-view>
+            </keep-alive>
+        </div>
+    </div>
+</div>

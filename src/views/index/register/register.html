@@ -1,0 +1,66 @@
+<div style="width: 100%; height: 100%; background-color: #188ae2;">
+    <Row class="login-regist-brother">
+        <Row class="otherbox">
+            <div class="tabregit">
+                <span class="diffsaiton">注册</span>
+            </div>
+            <div class="form-con" v-if="isFirstPanel">
+                <Form ref="firstForm" :model="user" :rules="rules">
+                    <FormItem prop="mobile">
+                        <Input v-model="user.mobile" placeholder="手机号码或邮箱" size="large" clearable>
+                        </Input>
+                    </FormItem>
+                    <Button @click="nextHandle" type="primary" long class="login-button" :loading="nextStep">
+                        <span v-if="!nextStep">下一步</span>
+                        <span v-else>跳转中...</span>
+                    </Button>
+                </Form>
+            </div>
+            <!-- 注册表单 -->
+            <div class="form-con" v-if="!isFirstPanel">
+                <Form ref="registerForm" :model="user" :rules="rules">
+                    <FormItem prop="mobile" v-show="isMobilePanel">
+                        <Input v-model="user.mobile" placeholder="手机号" disabled class="" size="large" style="">
+                        </Input>
+                    </FormItem>
+                    <FormItem prop="validateCode" v-show="isMobilePanel">
+                        <Input v-model="user.validateCode" placeholder="短信校验码" size="large" class="valiwhich" clearable>
+                        </Input>
+                        <Button @click="sendValidateCode(2)" :disabled="!isClickValidateCode" type="primary" class="send">{{ validateCodeContent }}</Button>
+                    </FormItem>
+                    <FormItem prop="email" v-show="!isMobilePanel">
+                        <Input v-model="user.email" placeholder="邮箱" disabled class="" size="large" style="">
+                        </Input>
+                    </FormItem>
+                    <FormItem prop="validateCode" v-show="!isMobilePanel">
+                        <Input v-model="user.validateCode" placeholder="邮件校验码" size="large" class="valiwhich" clearable>
+                        </Input>
+                        <Button @click="sendValidateCode(2,false)" :disabled="!isClickValidateCode" type="primary" class="send">{{ validateCodeContent }}</Button>
+                    </FormItem>
+                    <FormItem prop="account">
+                        <Input v-model="user.account" placeholder="账号" size="large" clearable>
+                        </Input>
+                    </FormItem>
+                    <FormItem prop="password">
+                        <Input type="password" v-model="user.password" placeholder="密码" size="large" clearable>
+                        </Input>
+                        <div :class="{ 'eyeclose' : isA, 'eyeopen': !isA}" @click="changeType()"></div>
+                    </FormItem>
+                    <FormItem prop="repassword">
+                        <Input type="password" v-model="user.repassword" placeholder="再次确认密码" size="large" clearable>
+                        </Input>
+                        <div :class="{ 'eyeclose' : isB, 'eyeopen': !isB}" @click="changeType1()"></div>
+                    </FormItem>
+                    <Button @click="handleSubmit" type="primary" long class="login-button" :loading="loadingRegist">
+                        <span v-if="!loadingRegist">注册</span>
+                        <span v-else>注册中...</span>
+                    </Button>
+                    <span @click="showForget" style="float:right;cursor:pointer;color:#2d8cf0;padding-bottom:2px;border-bottom:1px solid #0088ff">忘记密码?</span>
+                    <div class="gologin">
+                        <a @click="showLogin"> 返回登录</a>
+                    </div>
+                </Form>
+            </div>
+        </Row>
+    </Row>
+</div>

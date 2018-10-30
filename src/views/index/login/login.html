@@ -1,0 +1,76 @@
+<div style="width: 100%; height: 100%; background-color: #188ae2;">
+  <div class="login" @keydown.enter="accountLogin" v-if="!isMobilePanel">
+    <div class="wmlogo"></div>
+    <!-- //登录表单 -->
+    <Row class="login-brother">
+      <Row class="otherbox">
+        <div class="tabbox" @click="chooseLoad">
+          <span class="diffsait on" >账号登录</span>
+          <span class="diffsait" >手机登录</span>
+        </div>
+
+        <!-- 账号登陆表单 -->
+        <div class="form-con">
+          <Form ref="loginForm" :model="user" :rules="rules">
+            <FormItem prop="account">
+              <Input v-model="user.account" placeholder="请输入账号/邮箱" size="large" clearable>
+              </Input>
+            </FormItem>
+            <FormItem prop="password">
+              <Input type="password" v-model="user.password" placeholder="请输入密码" size="large" clearable>
+              </Input>
+            </FormItem>
+            <Button @click="accountLogin" type="primary" long class="login-button" :loading="loading">
+              <span v-if="!loading">登录</span>
+              <span v-else>登录中...</span>
+            </Button>
+            <Checkbox v-model="device.isSavePassword">记住密码</Checkbox>
+            <span @click="showForget" class="showForget">忘记密码?</span>
+          </Form>
+        </div>
+
+        <div class="goregist">
+          <span>还没有账号？</span>
+          <a @click="showRegister">注册新账号</a>
+        </div>
+
+      </Row>
+    </Row>
+  </div>
+
+  <div class="login" @keydown.enter="mobileLogin" v-if="isMobilePanel">
+    <div class="wmlogo"></div>
+    <!-- //登录表单 -->
+    <Row class="login-brother">
+      <Row class="otherbox">
+        <div class="tabbox" @click="chooseLoad">
+          <span class="diffsait" >账号登录</span>
+          <span class="diffsait on" >手机登录</span>
+        </div>
+
+        <!-- 手机登录表单 -->
+        <div class="form-con">
+          <Form ref="mobilelogin" :model="user" :rules="rules">
+            <FormItem prop="mobile">
+              <Input v-model="user.mobile" placeholder="请输入手机号" size="large"></Input>
+            </FormItem>
+            <FormItem prop="validateCode">
+              <Input v-model="user.validateCode" placeholder="请输入验证码" class="yanzhengma_input" size="large"></Input>
+              <i-button type="primary" @click="sendValidateCode(1)" :disabled="!isClickValidateCode" style="width: 31%; margin-left: 1%;">{{validateCodeContent}}</i-button>
+            </FormItem>
+            <Button @click="mobileLogin" type="primary" long class="login-button" :loading="loadingMobile">
+              <span v-if="!loadingMobile">登录</span>
+              <span v-else>登录中...</span>
+            </Button>
+          </Form>
+        </div>
+
+        <div class="goregist">
+          <span>还没有账号？</span>
+          <a @click="showRegister">注册新账号</a>
+        </div>
+
+      </Row>
+    </Row>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+
+<Table border :columns="colHeadersdata" :data="searchPage.list" @on-select="handleRowChange" @on-select-all="allhandle"></Table>
+<div class="clearfix" style="margin-top:30px;">
+    <div class="fl headban">
+    </div>
+    <Page :total="searchPage.total" :page-size="searchPage.pageSize" show-total class="paging fr" @on-change="changepage" show-elevator></Page>
+</div>

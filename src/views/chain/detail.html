@@ -1,0 +1,29 @@
+<div>
+
+    <Card>
+        <p slot="title">
+            <Icon type="person"></Icon>
+            链路管理
+        </p>
+        <div>
+            <Form ref="chainForm" :label-width="180" label-position="right">
+
+                <FormItem label="名称：" prop="cityName">
+                    <div style="display:inline-block;width:300px;">
+                        <Input v-model="detailData.chainName"></Input>
+                    </div>
+                </FormItem>
+                <FormItem label="类型：" prop="areaName">
+                    <div style="display:inline-block;width:300px;">
+                        <Input v-model="detailData.type" placeholder=""></Input>
+                    </div>
+                </FormItem>
+                <div style="margin-left:250px;">
+                    <Button type="primary" style="width: 100px;" @click="save">保存</Button>
+                    <Button type="primary" style="width: 100px;" @click="goBack">返回</Button>
+                </div>
+            </Form>
+        </div>
+    </Card>
+
+</div>

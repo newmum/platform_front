@@ -1,0 +1,27 @@
+<div id="tableBox">
+    <div>
+        <p class="headban">
+            <span>链路名称:</span>
+            <Input class="longinpt" v-model="processorChain.chainName" placeholder='请输入关键词' style="width: 162px"></Input>
+        </p>
+        <p class="headban">
+            <span @click="handleSearch">
+              <Button type="primary" icon="search">查询</Button>
+            </span>
+        </p>
+        <p class="headban">
+            <span @click="handleNewUser">
+                    <Button type="primary" icon="ios-plus-empty">新增</Button>
+                </span>
+        </p>
+    </div>
+    <Row style="margin-top:20px;">
+        <Table border :loading="loading" :columns="colHeadersdata" :data="searchPage.list" @on-select="handleRowChange" @on-select-all="allhandle"></Table>
+        <div class="clearfix" style="margin-top:30px;">
+            <div class="fl headban">
+
+            </div>
+            <Page :total="searchPage.total" :page-size="searchPage.pageSize" show-total class="paging fr" @on-change="changepage" show-elevator></Page>
+        </div>
+    </Row>
+</div>

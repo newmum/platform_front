@@ -1,0 +1,82 @@
+<div>
+    <div v-show="!shrink" :style="{background: bgColor}" class="ivu-shrinkable-menu">
+        <div slot="top" class="logo-con" style="background: #2E8CF0;">
+            <img class="logo" src="../../../static/image/favicon.ico" />
+            <span class="logo_txt">开发平台</span>
+        </div>
+        <slot name="top"></slot>
+        <Menu ref="sideMenu" :active-name="currentRouter.id" :open-names="openNames" :theme="theme" width="auto" @on-select="selectMenu">
+            <template v-for="item in menuList">
+                <MenuItem v-if="item.children.length == 0" :name="item.id">
+                    <Icon :size="18" :type="item.icon"></Icon>
+                    <span class="layout-text">{{ item.title }}</span>
+                </MenuItem>
+                <Submenu v-if="item.children.length >= 1" :name="item.id">
+                    <template slot="title">
+                        <Icon :size="18" :type="item.icon"></Icon>
+                        <span class="layout-text">{{ item.title }}</span>
+                    </template>
+                    <template v-for="child in item.children">
+                        <MenuItem v-if="child.children.length == 0" :name="child.id">
+                            <Icon :size="18" :type="child.icon"></Icon>
+                            <span class="layout-text">{{ child.title }}</span>
+                        </MenuItem>
+                        <Submenu v-if="child.children.length >= 1" :name="child.id">
+                            <template slot="title">
+                                <Icon :size="18" :type="child.icon"></Icon>
+                                <span class="layout-text">{{ child.title }}</span>
+                            </template>
+                            <template v-for="son in child.children">
+                                <MenuItem v-if="son.children.length == 0" :name="son.id">
+                                    <Icon :size="18" :type="son.icon"></Icon>
+                                    <span class="layout-text">{{ son.title }}</span>
+                                </MenuItem>
+                                <Submenu v-if="son.children.length >= 1" :name="son.id">
+                                    <template slot="title">
+                                        <Icon :size="18" :type="son.icon"></Icon>
+                                        <span class="layout-text">{{ son }}</span>
+                                    </template>
+                                </Submenu>
+                            </template>
+                        </Submenu>
+                    </template>
+                </Submenu>
+            </template>
+        </Menu>
+    </div>
+    <div v-show="shrink"
+        :style="{background: shrinkIconColor}"
+        >
+        <div slot="top" class="logo-con" style="background: #2E8CF0;">
+            <img class="min-img" src="../../../static/image/favicon.ico" />
+        </div>
+        <template v-for="(item, index) in menuList" >
+            <div style="text-align: center;" >
+                <Dropdown transfer v-if="item.children.length == 0" placement="right-start" :key="index" @on-click="handleChange">
+                    <Button style="width: 70px;margin-left: -5px;padding:10px 0;" type="text">
+                        <Icon :size="20" :color="iconColor" :type="item.icon"></Icon>
+                    </Button>
+                    <DropdownMenu style="width: 200px;" slot="list">
+                        <DropdownItem :name="item.name">
+                            <Icon :size="20" :type="item.icon"></Icon>
+                            <span style="padding-left:10px;">{{ item.title }}</span>
+                        </DropdownItem>
+                    </DropdownMenu>
+                </Dropdown>
+                <Dropdown transfer v-if="item.children.length >= 1" placement="right-start" :key="index" @on-click="handleChange">
+                    <Button style="width: 70px;margin-left: -5px;padding:10px 0;" type="text">
+                        <Icon :size="20" :color="iconColor" :type="item.icon"></Icon>
+                    </Button>
+                    <DropdownMenu style="width: 200px;" slot="list">
+                        <template v-for="(child, i) in item.children">
+                            <DropdownItem :name="child.name" >
+                                <Icon :size="20" :type="child.icon"></Icon>
+                                <span style="padding-left:10px;">{{ child.title }}</span>
+                            </DropdownItem>
+                        </template>
+                    </DropdownMenu>
+                </Dropdown>
+            </div>
+        </template>
+    </div>
+</div>
