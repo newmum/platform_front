@@ -1,6 +1,6 @@
 
 interface IData {
-    CrmUser ?: any,
+    User ?: any,
     Page ?: any,
     attrList ?: any,
     headList?:Array<any>,

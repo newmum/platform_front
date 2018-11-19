@@ -54,7 +54,7 @@ export default class Login extends Index {
     loginSuccess(result:Result){
         if (result.success) {
             this.$Message.success(Tips.get(result.msg));
-            LocalStorage.set(StorageConst.USER_INFO,  new User(result.data.CrmUser).toString());
+            LocalStorage.set(StorageConst.USER_INFO,  new User(result.data.User).toString());
             if(this.device.isSavePassword){
                 this.device.account = this.user.account;
                 this.device.password = this.user.password;
@@ -78,7 +78,7 @@ export default class Login extends Index {
             this.$Notice.error({
                 title: '错误',
                 desc: Tips.get(result.msg)
-            });
+            },this.loading = false);
         }
     }
 

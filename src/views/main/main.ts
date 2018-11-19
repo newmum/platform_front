@@ -121,6 +121,9 @@ export default class Main extends BaseView {
     route(to: any) {
         this.$store.state.app.breadcrumb = MainAction.getBreadcrumb(this);
         this.$store.state.app.tagsList = MainAction.getTagsList(this);
+
+        //console.log(to);
+        //this.currentRouter = ?
         //this.checkTag(to.name);
     }
 

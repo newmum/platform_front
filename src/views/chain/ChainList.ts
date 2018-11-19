@@ -1,4 +1,4 @@
-import {Component, Watch} from 'vue-property-decorator'
+import {Component, Watch} from "vue-property-decorator"
 import './list.less'
 import { ResourceApi as Api } from "../../router/ResourceApi";
 import { Result } from "../../entity/Result";
