@@ -1,4 +1,4 @@
-<div class="main" :class="{'main-hide-text': shrink}">
+<div class="main" :class="{'main-hide-text': shrink}" xmlns:v-on="http://www.w3.org/1999/xhtml">
     <div class="sidebar-menu-con" :style="{width: shrink?'60px':'220px', overflow: shrink ? 'visible' : 'auto'}">
 
             <SidebarMenu :shrink="shrink"
@@ -21,7 +21,9 @@
             <div class="header-middle-con">
                 <div class="main-breadcrumb">
                     <Breadcrumb>
-                        <BreadcrumbItem v-for="item in breadcrumb" :href="item.path" :key="item.name">{{item.title}}</BreadcrumbItem>
+                        <BreadcrumbItem v-for="item in breadcrumb" :href="item.path" :key="item.name">
+                            <span @click="linkTo(item)">{{item.title}}</span>
+                        </BreadcrumbItem>
                     </Breadcrumb>
                 </div>
             </div>

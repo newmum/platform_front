@@ -30,6 +30,25 @@ export default class Main extends BaseView {
         let breadcrumb = this.$store.state.app.breadcrumb;
         return breadcrumb[breadcrumb.length-1];
     }
+
+    /**
+     * 点击导航标签
+     */
+    linkTo(item: any) {
+        if(item.name != this.currentRouter.name){
+            let routerObj: any = {};
+            routerObj.name = item.name;
+            if (item.argu) {
+                routerObj.params = item.argu;
+            }
+            if (item.query) {
+                routerObj.query = item.query;
+            }
+            this.$router.push(routerObj);
+            MainAction.addBreadcrumb(this, item);
+        }
+    }
+
     //导航集合
     get tagsList() {
         return this.$store.state.app.tagsList;
@@ -191,8 +210,8 @@ export default class Main extends BaseView {
         this.$store.state.app.breadcrumb = MainAction.getBreadcrumb(this);
         this.$store.state.app.tagsList = MainAction.getTagsList(this);
         let route: any = this.$router;
-        //this.checkTag(route.history.current.name);
-        //window.addEventListener('resize', this.scrollBarResize);
+        // this.checkTag(route.history.current.name);
+        // window.addEventListener('resize', this.scrollBarResize);
     }
 
 }
