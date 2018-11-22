@@ -3,11 +3,11 @@ import './navtags.less'
 import {LocalStorage} from "../../../core/storage/LocalStorage";
 import {StorageConst} from "../../../constant/StorageConst";
 import {BaseView} from "../../../core/base/BaseView";
-import MainAction from "../MainAction";
 import {UIRouter} from "../UIRouter";
+import MainAction from "../MainAction";
 
 @Component({
-  template: require('./navtags.html')
+    template: require('./navtags.html')
 })
 export default class NavTags extends BaseView {
     tagBodyLeft = 0

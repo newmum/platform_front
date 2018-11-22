@@ -140,10 +140,8 @@ export default class Main extends BaseView {
     route(to: any) {
         this.$store.state.app.breadcrumb = MainAction.getBreadcrumb(this);
         this.$store.state.app.tagsList = MainAction.getTagsList(this);
-
-        //console.log(to);
-        //this.currentRouter = ?
-        //this.checkTag(to.name);
+        this.openNames.splice(this.breadcrumb[this.breadcrumb[this.breadcrumb.length - 1].parentId])
+        this.openNames.push(this.breadcrumb[this.breadcrumb.length - 1].parentId);
     }
 
     mounted() {
@@ -176,7 +174,6 @@ export default class Main extends BaseView {
                     name: i.name,
                     children:[]
                 })
-                this.openNames.push(i.id);
             }
             let tree = new treeMag()
             tree.data = treeAarr
@@ -210,6 +207,7 @@ export default class Main extends BaseView {
         this.$store.state.app.breadcrumb = MainAction.getBreadcrumb(this);
         this.$store.state.app.tagsList = MainAction.getTagsList(this);
         let route: any = this.$router;
+        this.openNames.push(this.breadcrumb[this.breadcrumb.length - 1].parentId);
         // this.checkTag(route.history.current.name);
         // window.addEventListener('resize', this.scrollBarResize);
     }

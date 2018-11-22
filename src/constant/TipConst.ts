@@ -64,16 +64,12 @@ class TipConst{
 
     system_field_not_delete="系统字段不能删除"
 
-
-
     ui_componet_prop_has_exist = "组件属性已存在"
     ui_componet_prop_all = "组件属性已都添加"
 
     create_table_resPropList_null="创建表格时,字段集合为空"
     validate_image_input_null="图形验证码输入为空"
     validate_image_get="请获取图形验证码"
-
-
 
 }
 export class Tips {
@@ -90,7 +86,7 @@ export class Tips {
         if (this.map.hasOwnProperty(key)) {
             return this.map[key];
         }
-        return '';
+        return key;
     };
     static getKeys () {
         let keys = [];

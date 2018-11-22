@@ -1,7 +1,7 @@
 
 /**
  * @ClassName: ConvertUtil
- * @Description: 类型装换组件
+ * @Description: 类型转换组件
  * @author： zhengchao
  * @date： 2018年5月31日
  */

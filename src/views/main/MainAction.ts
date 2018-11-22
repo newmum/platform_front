@@ -4,6 +4,7 @@ import {LocalStorage} from "../../core/storage/LocalStorage";
 import {StorageConst} from "../../constant/StorageConst";
 import {UIRouter} from "./UIRouter";
 import {CheckUtil} from "../../utils/verify/CheckUtil";
+import Component from "vue-class-component";
 
 /**
  * @ClassName: MainAction

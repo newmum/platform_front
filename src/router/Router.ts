@@ -36,6 +36,10 @@ const routes: RouteConfig[] = [
             }, {
                 path: '/chain/:id',
                 component: ChainDetail,
+            }, {
+                path: '/xxlReport',
+                name: 'xxlReport',
+                component: ChainList,
             }
         ]
     }

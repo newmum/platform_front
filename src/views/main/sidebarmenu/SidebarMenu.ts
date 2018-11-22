@@ -32,6 +32,7 @@ export default class SidebarMenu extends BaseView {
     @Prop({ type: Array })
     openNames: Array<any>;
 
+
     @Prop()
     currentRouter:UIRouter;
 

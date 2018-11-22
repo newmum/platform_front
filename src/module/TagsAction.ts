@@ -8,7 +8,7 @@ const TagsAction = {
         }],
     },
     mutations: {
-        getTagsList(state:any, get:any) {debugger
+        getTagsList(state:any, get:any) {
             let openedPage = state.tagsList[get.index];
             if (get.argu) {
                 openedPage.argu = get.argu;
