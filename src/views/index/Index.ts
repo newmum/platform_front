@@ -6,13 +6,25 @@ import {IndexApi as Api} from "../../router/IndexApi";
 import {Tips} from "../../constant/TipConst";
 import {Result} from "../../entity/Result";
 
+/**
+ * @ClassName: Index
+ * @Description: 入口控制器基类
+ * @author： zhengc
+ * @date： 2018年9月13日
+ */
 @Component
 export default class Index extends BaseView {
+    //校验码开关
     isClickValidateCode = true
+    //校验码按钮内容
     validateCodeContent = '发送校验码'
+    //设备对象
     device = Device.get()
+    //用户对象
     user:User = new User()
+    //密码面板开关
     isMobilePanel = false
+
     /**
      * 表单验证规则
      */
@@ -72,18 +84,27 @@ export default class Index extends BaseView {
         }
     }
 
+    /**
+     * 跳转账号注册页
+     */
     showRegister(){
         this.$router.push({
             name: "register"
         });
     }
 
+    /**
+     * 跳转账号找回页
+     */
     showForget(){
         this.$router.push({
             name: "forget"
         });
     }
 
+    /**
+     * 跳转登录页
+     */
     showLogin(){
         this.$router.push({
             name: "login"

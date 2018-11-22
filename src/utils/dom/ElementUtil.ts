@@ -10,7 +10,7 @@ export class ElementUtil{
      * 获取滚动条scrollTop
      */
     static scrollTop(){
-        return document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
+        return document.documentElement!.scrollTop || window.pageYOffset || document.body.scrollTop;
     }
 
     /**

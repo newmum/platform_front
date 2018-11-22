@@ -1,35 +1,37 @@
 import {Component, Watch} from "vue-property-decorator"
 import './list.less'
-import { ResourceApi as Api } from "../../router/ResourceApi";
-import { Result } from "../../entity/Result";
-import { QueryParam } from "../../entity/QueryParam";
-import { BaseView } from "../../core/base/BaseView";
-import { Tips } from "../../constant/TipConst";
-import {ProcessorChain} from "./ProcessorChain";
+import { ResourceApi as Api } from "../../../router/ResourceApi";
+import { Result } from "../../../entity/Result";
+import { QueryParam } from "../../../entity/QueryParam";
+import { BaseView } from "../../../core/base/BaseView";
+import { Tips } from "../../../constant/TipConst";
+import {ProcessorChain} from "../ProcessorChain";
 
+/**
+ * @ClassName: ChainList
+ * @Description: 表单和详情页
+ * @author： zhengc
+ * @date： 2018年11月22日
+ */
 @Component({
     template: require('./list.html'),
 })
 export default class ChainList extends BaseView {
-    tableResult: Result = new Result();//返回的结果数据
-    delonlyId: number = 0
-    getuserID: number = 0
-    DynamicListResult: Result = new Result();
-    searchPage: IPage = {
-        page: 1,
-        pageSize: 5,
-        total: 0,
-        list: []
-    }
+    //列表数据
+    result: Result = new Result();
+    //列表是否加载中
     loading:boolean = true;
-    qureyDel: Array<any> = []
+    //条件对象
     queryParam: QueryParam = new QueryParam();
-    colHeadersdata: any = []
+    //表头数据
+    colHeadersdata: any = [];
+    //链路对象
     processorChain: ProcessorChain  = new ProcessorChain();
-    handleSearch() {
-        this.getDynamicList()
-    }
-    async getDynamicList() {
+
+    /**
+     * 请求列表数据
+     */
+    async list() {
         this.loading = true;
         this.queryParam.clear();
         this.queryParam.needTotal = true;
@@ -38,23 +40,28 @@ export default class ChainList extends BaseView {
                 {attrName:'CHAIN_NAME',condition:'like',value:this.processorChain.chainName.replace(/(^\s+)|(\s+$)/g,"")}
                 );
         }
-        this.DynamicListResult = await Api.list('processor_chain', this.queryParam);
+        this.result = await Api.list('processor_chain', this.queryParam);
         this.loading = false;
-        this.searchPage = this.DynamicListResult.data.Page;
     }
 
-    //页面切换
-    changepage(index: any) {
+    /**
+     * 分页切换
+     * @param index
+     */
+    changePage(index: any) {
         this.queryParam.page = index;
-        this.getDynamicList()
+        this.list()
     }
-    //删除单条数据
-    delOnlyList() {
+
+    /**
+     * 点击删除
+     */
+    del() {
         this.$Modal.confirm({
             title: '提示',
             content: '<p>是否要删除数据？</p>',
             onOk: async () => {
-                let delonly = await Api.del("processor_chain", this.delonlyId)
+                let delonly = await Api.del("processor_chain", this.processorChain.id)
                 if (delonly.success) {
                     this.$Message.success(Tips.get(delonly.msg));
                 } else {
@@ -62,73 +69,32 @@ export default class ChainList extends BaseView {
                         title: Tips.get(delonly.msg)
                     });
                 }
-                this.getDynamicList()
+                this.list()
             },
             onCancel: () => {
-
             }
         });
     }
-    handleNewUser() {
+
+    /**
+     * 点击新增
+     */
+    add() {
         this.$router.push({
             path: "/chain/0"
         });
-    }
-    async downloadTemplate(){
-        
-    }
-    // 删除全部
-    delSelectAll() {
-        // this.$Modal.confirm({
-        //     title: '提示',
-        //     content: '<p>是否要删除数据？</p>',
-        //     onOk: async () => {
-        //         let delsome = await Api.delsomeList(
-        //             "message_sms",
-        //             this.qureyDel, 1
-        //         );
-        //         console.log(delsome)
-        //         let self = this
-        //         self.queryParam.list = []
-        //         self.queryParam.pageSize = 5
-        //         self.queryParam.needPage = true
-        //         self.queryParam.needTotal = true
-        //         self.queryParam.append({ attrName: 'name', condition: 'like', value: this.user.name, relation: "and" })
-        //         this.DynamicListResult = await Api.DynamicConditionQuery("message_sms", self.queryParam)
-        //         this.settingdata = this.DynamicListResult.data.Page.list
-        //         this.Spage.total = this.DynamicListResult.data.Page.total
-        //         if (delsome.success) {
-        //             this.$Message.success(Tips.get(delsome.msg));
-        //         } else {
-        //             this.$Notice.error({
-        //                 title: Tips.get(delsome.msg)
-        //             });
-        //         }
-        //     },
-        //     onCancel: () => {
-        //
-        //     }
-        // });
-
-    }
-    //选中某个
-    handleRowChange(currentRow: any) {
-        this.qureyDel = currentRow.map((v: any) => v.id);
-    }
-    // 删除全部
-    allhandle(selection: any) {
-        let del = []
-        this.qureyDel = selection.map((v: any) => v.id);
-        // this.qureyDel = del.join(",");
     }
 
     @Watch('$route')
     router(to: any) {
         if(to.path === '/chain'){
-            this.getDynamicList();
+            this.list();
         }
     }
 
+    /**
+     * 初始化
+     */
     created() {
         this.colHeadersdata = [
             {
@@ -188,24 +154,22 @@ export default class ChainList extends BaseView {
                                 },
                                 on: {
                                     click: () => {
-                                        this.delonlyId = params.row.id
-                                        this.delOnlyList()
-                                        this.getDynamicList()
+                                        this.processorChain.id = params.row.id;
+                                        this.del();
+                                        this.list();
                                     }
                                 }
                             },
                             "删除"
                         ),
                     ]);
-
                 }
-
             }
         ]
     }
 
     mounted() {
-        this.getDynamicList()
+        this.list();
     }
 
 

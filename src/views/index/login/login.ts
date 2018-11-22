@@ -87,5 +87,4 @@ export default class Login extends Index {
         this.user.password = this.device.password;
         this.user.mobile = this.device.mobile;
     }
-
 }

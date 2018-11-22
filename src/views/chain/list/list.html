@@ -5,23 +5,22 @@
             <Input class="longinpt" v-model="processorChain.chainName" placeholder='请输入关键词' style="width: 162px"></Input>
         </p>
         <p class="headban">
-            <span @click="handleSearch">
+            <span @click="list">
               <Button type="primary" icon="search">查询</Button>
             </span>
         </p>
         <p class="headban">
-            <span @click="handleNewUser">
+            <span @click="add">
                     <Button type="primary" icon="ios-plus-empty">新增</Button>
                 </span>
         </p>
     </div>
     <Row style="margin-top:20px;">
-        <Table border :loading="loading" :columns="colHeadersdata" :data="searchPage.list" @on-select="handleRowChange" @on-select-all="allhandle"></Table>
+        <Table border :loading="loading" :columns="colHeadersdata" :data="result.data.Page.list" @on-select="handleRowChange"></Table>
         <div class="clearfix" style="margin-top:30px;">
             <div class="fl headban">
-
             </div>
-            <Page :total="searchPage.total" :page-size="searchPage.pageSize" show-total class="paging fr" @on-change="changepage" show-elevator></Page>
+            <Page :total="result.data.Page.total" :page-size="result.data.Page.pageSize" show-total class="paging fr" @on-change="changePage" show-elevator></Page>
         </div>
     </Row>
 </div>

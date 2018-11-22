@@ -1,40 +1,31 @@
 import {Component, Watch} from "vue-property-decorator";
 import './detail.less'
-import { BaseView } from "../../core/base/BaseView";
-import { ResourceApi } from "../../router/ResourceApi";
-import {Tips} from "../../constant/TipConst";
-
-import BaiduMap from 'vue-baidu-map/components/map/Map.vue'
-import {ProcessorChain} from "./ProcessorChain";
+import {BaseView} from "../../../core/base/BaseView";
+import {ResourceApi} from "../../../router/ResourceApi";
+import {Tips} from "../../../constant/TipConst";
+import {ProcessorChain} from "../ProcessorChain";
 
 /**
- * @ClassName: Detail
+ * @ClassName: ChainDetail
  * @Description: 表单和详情页
- * @author： zhengchao
- * @date： 2018年10月29日
+ * @author： zhengc
+ * @date： 2018年11月22日
  */
 @Component({
-    template: require('./detail.html'),
-    components: { BaiduMap }
+    template: require('./detail.html')
 })
 export default class ChainDetail extends BaseView {
 
-    detailData: ProcessorChain = new ProcessorChain();    //详情数据
-
-    goBack() {
-        window.history.go(-1);
-    }
-
-    handler (bmap:any) {
-    }
+    //详情数据
+    detailData: ProcessorChain = new ProcessorChain();
 
     @Watch('$route')
     router(to: any) {
-        if(to.path.indexOf('chaindetail') != -1){
+        if (to.path.indexOf('chaindetail') != -1) {
             let id: any = this.$route.params.id;
-            if(id!=0){
+            if (id != 0) {
                 this.showDetail(id);
-            }else{
+            } else {
                 this.detailData = new ProcessorChain();
             }
         }
@@ -47,9 +38,9 @@ export default class ChainDetail extends BaseView {
     async save() {
         let result;
         let id: any = this.$route.params.id;
-        if(id!=0){
+        if (id != 0) {
             result = await ResourceApi.update("processor_chain", this.detailData, 1);
-        }else{
+        } else {
             result = await ResourceApi.add("processor_chain", this.detailData, 1);
         }
         if (result.success) {
@@ -57,7 +48,7 @@ export default class ChainDetail extends BaseView {
             this.$router.push({
                 name: "chain"
             });
-        }else{
+        } else {
             this.$Notice.error({
                 title: '错误',
                 desc: Tips.get(result.msg)
@@ -75,13 +66,20 @@ export default class ChainDetail extends BaseView {
     }
 
     /**
+     * 返回上一页
+     */
+    back() {
+        window.history.go(-1);
+    }
+
+    /**
      * 初始化加载
      */
     mounted() {
         let id: any = this.$route.params.id;
-        if(id!=0){
+        if (id != 0) {
             this.showDetail(id);
-        }else{
+        } else {
             this.detailData = new ProcessorChain();
         }
     }

@@ -2,8 +2,8 @@ import Vue, {AsyncComponent} from 'vue'
 import Iview from 'iview'
 import Router, {RouteConfig, Route} from 'vue-router'
 import Main from '../views/main/Main';
-import ChainList from "../views/chain/ChainList";
-import ChainDetail from "../views/chain/ChainDetail";
+import ChainList from "../views/chain/list/ChainList";
+import ChainDetail from "../views/chain/detail/ChainDetail";
 import Login from "../views/index/login/Login";
 
 const register: AsyncComponent = (): any => import('../views/index/register/Register')
