@@ -172,6 +172,7 @@ export default class Main extends BaseView {
                     pId: i.parentId,
                     icon: i.icon,
                     name: i.name,
+                    pathType: i.pathType,
                     children:[]
                 })
             }
